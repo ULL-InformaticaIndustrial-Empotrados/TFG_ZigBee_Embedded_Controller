@@ -1,0 +1,26 @@
+name: mir-server
+version: 0.1
+vendor: Cemil Azizoglu <cemil.azizoglu@canonical.com>
+summary: A minimalistic Mir server snap
+description: This Mir server uses the default settings that the Mir server library provides.
+icon: mir.png
+
+services:
+  mir-server:
+    start: bin/run-mir
+#    caps:
+#      - display-server
+#      - unix-listener
+    security-template: unconfined
+
+parts:
+    server:
+        plugin: cmake
+        source: src
+        stage-packages:
+            - libmirserver-dev
+            - mir-graphics-drivers-desktop
+    glue:
+        plugin: copy
+        files:
+            run-mir: bin/run-mir
