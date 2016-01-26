@@ -1,18 +1,19 @@
 name: mir-server
 version: 0.1
-vendor: Cemil Azizoglu <cemil.azizoglu@canonical.com>
+#vendor: Cemil Azizoglu <cemil.azizoglu@canonical.com>
 summary: A minimalistic Mir server snap
 description: This Mir server uses the default settings that the Mir server library provides.
 icon: mir.png
+type: app
 
-services:
+apps:
   mir-server:
-    start: bin/run-mir
-#    caps:
-#      - display-server
-#      - unix-listener
-    security-template: unconfined
-
+    command: bin/run-mir
+    daemon: simple
+    caps:
+      - display-server
+      - unix-listener
+#    security-template: unconfined
 parts:
     server:
         plugin: cmake
