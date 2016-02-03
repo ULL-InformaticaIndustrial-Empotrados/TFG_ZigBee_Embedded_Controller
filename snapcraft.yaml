@@ -1,5 +1,5 @@
 name: mir-server
-#for convenience, make the version matches mir
+# for convenience, make version match mir
 version: 0.19
 summary: A minimalistic Mir server snap
 description: This Mir server uses the default settings that the Mir server library provides.
@@ -10,18 +10,28 @@ apps:
   mir-server:
     command: bin/run-mir
     daemon: simple
-    caps:
-      - display-server
-      - unix-listener
+    uses:
+      - migration-one
+      - migration-two
 #    security-template: unconfined
+uses:
+  migration-one:
+    type: migration-skill
+    security-template: display-server
+  migration-two:
+    type: migration-skill
+    security-template: unix-listener
 parts:
-    server:
-        plugin: cmake
-        source: src
-        stage-packages:
-            - libmirserver-dev
-            - mir-graphics-drivers-desktop
-    glue:
-        plugin: copy
-        files:
-            run-mir: bin/run-mir
+  server:
+    plugin: cmake
+    source: src
+    build-packages:
+      - libc6-dev
+      - pkg-config
+    stage-packages:
+      - libmirserver-dev
+      - mir-graphics-drivers-desktop
+glue:
+  plugin: copy
+  files:
+    run-mir: bin/run-mir
