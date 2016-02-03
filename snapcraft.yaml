@@ -27,11 +27,10 @@ parts:
     source: src
     build-packages:
       - libc6-dev
-      - pkg-config
     stage-packages:
       - libmirserver-dev
       - mir-graphics-drivers-desktop
-glue:
-  plugin: copy
-  files:
-    run-mir: bin/run-mir
+  glue:
+    plugin: copy
+    files:
+      run-mir: bin/run-mir
