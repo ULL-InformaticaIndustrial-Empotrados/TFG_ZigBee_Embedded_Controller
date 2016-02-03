@@ -1,6 +1,6 @@
 name: mir-server
-version: 0.1
-#vendor: Cemil Azizoglu <cemil.azizoglu@canonical.com>
+#for convenience, make the version matches mir
+version: 0.19
 summary: A minimalistic Mir server snap
 description: This Mir server uses the default settings that the Mir server library provides.
 icon: mir.png
