@@ -11,16 +11,14 @@ apps:
     command: bin/run-mir
     daemon: simple
     uses:
-      - migration-one
-      - migration-two
+      - migration-stuff
 #    security-template: unconfined
 uses:
-  migration-one:
+  migration-stuff:
     type: migration-skill
-    security-template: display-server
-  migration-two:
-    type: migration-skill
-    security-template: unix-listener
+    caps:
+      - display-server
+      - unix-listener
 parts:
   server:
     plugin: cmake
