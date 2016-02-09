@@ -16,17 +16,23 @@
  * Authored by: Cemil Azizoglu <cemil.azizoglu@canonical.com>
  */
 
+#include "mir_server_fullscreen_wm.h"
+
 #include "mir/server.h"
 #include "mir/report_exception.h"
 
 #include <cstdlib>
 #include <iostream>
 
+namespace msn = mir::snappy;
+
 int main(int argc, char const* argv[])
 try
 {
     std::cout << "Mir server snap started" << std::endl;
     mir::Server server;
+
+    msn::use_full_screen_window_manager(server);
 
     server.set_command_line(argc, argv);
     server.apply_settings();

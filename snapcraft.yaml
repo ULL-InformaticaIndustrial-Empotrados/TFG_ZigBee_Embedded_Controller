@@ -27,6 +27,8 @@ parts:
       - libc6-dev
     stage-packages:
       - libmirserver-dev
+      - libmirclient-dev
+      - libmirplatform-dev
       - mir-graphics-drivers-desktop
   glue:
     plugin: copy
