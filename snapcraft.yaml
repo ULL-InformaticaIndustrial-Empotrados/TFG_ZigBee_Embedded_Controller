@@ -30,6 +30,8 @@ parts:
       - libmirclient-dev
       - libmirplatform-dev
       - mir-graphics-drivers-desktop
+      - libglm-dev
+      - libxkbcommon-dev
   glue:
     plugin: copy
     files:
