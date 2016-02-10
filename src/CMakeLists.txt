@@ -10,6 +10,7 @@ include_directories(
     ../stage/usr/include/mirclient
     ../stage/usr/include/mircommon
     ../stage/usr/include/mirplatform
+    ../stage/usr/include
 )
 
 add_executable(
