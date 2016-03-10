@@ -10,12 +10,12 @@ apps:
   mir-server:
     command: bin/run-mir
     daemon: simple
-    uses:
-      - migration-stuff
+    plugs:
+      - display-server-caps
 #    security-template: unconfined
-uses:
-  migration-stuff:
-    type: migration-skill
+plugs:
+  display-server-caps:
+    type: old-security
     caps:
       - display-server
       - unix-listener
