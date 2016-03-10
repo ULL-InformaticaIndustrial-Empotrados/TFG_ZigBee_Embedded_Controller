@@ -1,6 +1,15 @@
 #!/usr/bin/env python
 # -*- coding: UTF-8 -*-
 
+#Copyright © 2015  Alberto Hamilton Castro
+#
+#Este programa es software libre: usted puede redistribuirlo y/o modificarlo conforme a los términos
+# de la Licencia Pública General de GNU publicada por la Fundación para el Software Libre,
+# ya sea la versión 3 de esta Licencia o (a su elección) cualquier versión posterior.
+#Este programa se distribuye con el deseo de que le resulte útil, pero SIN GARANTÍAS DE NINGÚN TIPO;
+# ni siquiera con las garantías implícitas de COMERCIABILIDAD o APTITUD PARA UN PROPÓSITO DETERMINADO.
+#Para más información, consulte la Licencia Pública General de GNU.
+
 #Programa con la lógica para gestionar la caja con 2 reles (D0,D1), 2 leds(D2,D3) y 2 pulsadores(D4,D5)
 
 from Conexiones import *
