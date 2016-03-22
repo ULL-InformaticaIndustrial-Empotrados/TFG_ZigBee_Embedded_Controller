@@ -1,6 +1,6 @@
 name: mir-server
 # for convenience, make version match mir
-version: 0.21
+version: 0.20.2
 summary: A minimalistic Mir server snap
 description: This Mir server uses the default settings that the Mir server library provides.
 icon: mir.png
