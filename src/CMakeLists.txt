@@ -6,11 +6,11 @@ set(CMAKE_VERBOSE_MAKEFILE ON)
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -pthread -g -std=c++14 -Werror -Wall -fno-strict-aliasing -pedantic -Wnon-virtual-dtor -Wextra -fPIC")
 
 include_directories(
-    ../stage/usr/include/mirserver
-    ../stage/usr/include/mirclient
-    ../stage/usr/include/mircommon
-    ../stage/usr/include/mirplatform
-    ../stage/usr/include
+    ${CMAKE_BINARY_DIR}/../install/usr/include/mirserver
+    ${CMAKE_BINARY_DIR}/../install/usr/include/mirclient
+    ${CMAKE_BINARY_DIR}/../install/usr/include/mircommon
+    ${CMAKE_BINARY_DIR}/../install/usr/include/mirplatform
+    ${CMAKE_BINARY_DIR}/../install/usr/include
 )
 
 add_executable(
