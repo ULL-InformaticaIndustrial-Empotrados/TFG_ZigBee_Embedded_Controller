@@ -11,14 +11,7 @@ apps:
     command: bin/run-mir
     daemon: simple
     plugs:
-      - display-server-caps
-#    security-template: unconfined
-plugs:
-  display-server-caps:
-    type: old-security
-    caps:
-      - display-server
-      - unix-listener
+      - display
 parts:
   server:
     plugin: cmake
