@@ -1,3 +1,3 @@
 #!/bin/bash
 
-MIR_SERVER_PLATFORM_PATH=$SNAP_APP_PATH/usr/lib/x86_64-linux-gnu/mir/server-platform LD_LIBRARY_PATH=$SNAP_APP_PATH/usr/lib/x86_64-linux-gnu/:$SNAP_APP_PATH/usr/lib/x86_64-linux-gnu/mesa-egl/ $SNAP_APP_PATH/bin/mir-server --vt 1 --file /run/mir_socket
+MIR_SERVER_PLATFORM_PATH=$SNAP/usr/lib/x86_64-linux-gnu/mir/server-platform LD_LIBRARY_PATH=$SNAP/usr/lib/x86_64-linux-gnu/:$SNAP/usr/lib/x86_64-linux-gnu/mesa-egl/ $SNAP/bin/mir-server --vt 1 --file /run/mir_socket

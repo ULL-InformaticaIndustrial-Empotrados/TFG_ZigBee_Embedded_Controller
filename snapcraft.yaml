@@ -11,7 +11,7 @@ apps:
     command: bin/run-mir
     daemon: simple
     plugs:
-      - display
+      - mir
 parts:
   server:
     plugin: cmake
