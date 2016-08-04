@@ -1,6 +1,6 @@
 name: mir-server
 # for convenience, make version match mir
-version: 0.23.3
+version: 0.23.5
 summary: A minimalistic Mir server snap
 description: This Mir server uses the default settings that the Mir server library provides.
 confinement: strict
@@ -10,7 +10,7 @@ apps:
   mir-server:
     command: bin/run-mir
     daemon: simple
-    plugs:
+    slots:
       - mir
 parts:
   server:
