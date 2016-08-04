@@ -1,0 +1,397 @@
+EESchema Schematic File Version 2
+LIBS:power
+LIBS:device
+LIBS:transistors
+LIBS:conn
+LIBS:linear
+LIBS:regul
+LIBS:74xx
+LIBS:cmos4000
+LIBS:adc-dac
+LIBS:memory
+LIBS:xilinx
+LIBS:microcontrollers
+LIBS:dsp
+LIBS:microchip
+LIBS:analog_switches
+LIBS:motorola
+LIBS:texas
+LIBS:intel
+LIBS:audio
+LIBS:interface
+LIBS:digital-audio
+LIBS:philips
+LIBS:display
+LIBS:cypress
+LIBS:siliconi
+LIBS:opto
+LIBS:atmel
+LIBS:contrib
+LIBS:valves
+LIBS:xbee-pandaboard-adapter-cache
+EELAYER 25 0
+EELAYER END
+$Descr A4 11693 8268
+encoding utf-8
+Sheet 1 1
+Title "xbee-pandaboard-adapter"
+Date "2016-08-02"
+Rev "1.0"
+Comp ""
+Comment1 "(Based on wifly-adapter-board from Dirk Grappendorf)"
+Comment2 "CERN Open Hardware License 1.1"
+Comment3 "Enrique Hernández Bello <ehbello@gmail.com>"
+Comment4 ""
+$EndDescr
+$Comp
+L 2N7000KL/BS170KL Q1
+U 1 1 57A09630
+P 3050 6100
+F 0 "Q1" V 3300 6250 50  0000 L BNN
+F 1 "2N7000" V 3400 6100 50  0000 L BNN
+F 2 "TO_SOT_Packages_THT:TO-92_Inline_Narrow_Oval" H 3050 6250 50  0001 C CNN
+F 3 "" H 3050 6100 60  0000 C CNN
+	1    3050 6100
+	0    1    1    0   
+$EndComp
+Text GLabel 2050 6200 0    60   Input ~ 0
+UART_TX
+Text GLabel 4100 6200 2    60   Input ~ 0
+DIN
+Text GLabel 2350 4850 1    60   Input ~ 0
+1V8
+Text GLabel 3700 4850 1    60   Input ~ 0
+3V3
+$Comp
+L MCP1702 IC1
+U 1 1 57A09917
+P 3050 1800
+F 0 "IC1" H 3200 1604 60  0000 C CNN
+F 1 "MCP1700-3302E" H 3050 2000 60  0000 C CNN
+F 2 "TO_SOT_Packages_THT:TO-92_Inline_Narrow_Oval" H 3050 1800 60  0001 C CNN
+F 3 "" H 3050 1800 60  0000 C CNN
+	1    3050 1800
+	1    0    0    -1  
+$EndComp
+$Comp
+L GNDREF #PWR01
+U 1 1 57A09A37
+P 3050 2750
+F 0 "#PWR01" H 3050 2500 50  0001 C CNN
+F 1 "GNDREF" H 3050 2600 50  0000 C CNN
+F 2 "" H 3050 2750 50  0000 C CNN
+F 3 "" H 3050 2750 50  0000 C CNN
+	1    3050 2750
+	1    0    0    -1  
+$EndComp
+Text GLabel 4550 1750 2    60   Input ~ 0
+3V3
+Text GLabel 1550 1750 0    60   Input ~ 0
+5V
+$Comp
+L CP C1
+U 1 1 57A09B41
+P 2150 2100
+F 0 "C1" H 2175 2200 50  0000 L CNN
+F 1 "1µF" H 2175 2000 50  0000 L CNN
+F 2 "Capacitors_ThroughHole:C_Disc_D6_P5" H 2188 1950 50  0001 C CNN
+F 3 "" H 2150 2100 50  0000 C CNN
+	1    2150 2100
+	1    0    0    -1  
+$EndComp
+$Comp
+L CP C2
+U 1 1 57A09F25
+P 3950 2100
+F 0 "C2" H 3975 2200 50  0000 L CNN
+F 1 "1µF" H 3975 2000 50  0000 L CNN
+F 2 "Capacitors_ThroughHole:C_Disc_D6_P5" H 3988 1950 50  0001 C CNN
+F 3 "" H 3950 2100 50  0000 C CNN
+	1    3950 2100
+	1    0    0    -1  
+$EndComp
+$Comp
+L R R1
+U 1 1 57A0A0CB
+P 2350 5750
+F 0 "R1" V 2430 5750 50  0000 C CNN
+F 1 "10K" V 2350 5750 50  0000 C CNN
+F 2 "Resistors_ThroughHole:Resistor_Horizontal_RM10mm" V 2280 5750 50  0001 C CNN
+F 3 "" H 2350 5750 50  0000 C CNN
+	1    2350 5750
+	1    0    0    -1  
+$EndComp
+$Comp
+L R R2
+U 1 1 57A0A15D
+P 3700 5750
+F 0 "R2" V 3780 5750 50  0000 C CNN
+F 1 "10K" V 3700 5750 50  0000 C CNN
+F 2 "Resistors_ThroughHole:Resistor_Horizontal_RM10mm" V 3630 5750 50  0001 C CNN
+F 3 "" H 3700 5750 50  0000 C CNN
+	1    3700 5750
+	1    0    0    -1  
+$EndComp
+$Comp
+L XBEE XB1
+U 1 1 57A0A3D5
+P 8850 2600
+F 0 "XB1" H 8600 3700 60  0000 C CNN
+F 1 "XBEE-1B3" H 8650 3400 60  0000 C CNN
+F 2 "lib:XBEE" H 8850 2600 60  0001 C CNN
+F 3 "" H 8850 2600 60  0000 C CNN
+	1    8850 2600
+	1    0    0    -1  
+$EndComp
+$Comp
+L GNDREF #PWR02
+U 1 1 57A0A4B8
+P 7900 3550
+F 0 "#PWR02" H 7900 3300 50  0001 C CNN
+F 1 "GNDREF" H 7900 3400 50  0000 C CNN
+F 2 "" H 7900 3550 50  0000 C CNN
+F 3 "" H 7900 3550 50  0000 C CNN
+	1    7900 3550
+	1    0    0    -1  
+$EndComp
+$Comp
+L GNDREF #PWR03
+U 1 1 57A0A548
+P 7550 3550
+F 0 "#PWR03" H 7550 3300 50  0001 C CNN
+F 1 "GNDREF" H 7550 3400 50  0000 C CNN
+F 2 "" H 7550 3550 50  0000 C CNN
+F 3 "" H 7550 3550 50  0000 C CNN
+	1    7550 3550
+	1    0    0    -1  
+$EndComp
+$Comp
+L GNDREF #PWR04
+U 1 1 57A0A5D1
+P 10100 3550
+F 0 "#PWR04" H 10100 3300 50  0001 C CNN
+F 1 "GNDREF" H 10100 3400 50  0000 C CNN
+F 2 "" H 10100 3550 50  0000 C CNN
+F 3 "" H 10100 3550 50  0000 C CNN
+	1    10100 3550
+	1    0    0    -1  
+$EndComp
+Text GLabel 7800 1900 0    60   Input ~ 0
+3V3
+Text GLabel 7800 2200 0    60   Input ~ 0
+DIN
+$Comp
+L R R5
+U 1 1 57A0A816
+P 7550 3250
+F 0 "R5" V 7630 3250 50  0000 C CNN
+F 1 "1Ω" V 7550 3250 50  0000 C CNN
+F 2 "Resistors_ThroughHole:Resistor_Horizontal_RM10mm" V 7480 3250 50  0001 C CNN
+F 3 "" H 7550 3250 50  0000 C CNN
+	1    7550 3250
+	1    0    0    -1  
+$EndComp
+$Comp
+L R R6
+U 1 1 57A0A9FA
+P 10100 3250
+F 0 "R6" V 10180 3250 50  0000 C CNN
+F 1 "1Ω" V 10100 3250 50  0000 C CNN
+F 2 "Resistors_ThroughHole:Resistor_Horizontal_RM10mm" V 10030 3250 50  0001 C CNN
+F 3 "" H 10100 3250 50  0000 C CNN
+	1    10100 3250
+	1    0    0    -1  
+$EndComp
+$Comp
+L GNDREF #PWR05
+U 1 1 57A0B887
+P 5900 5000
+F 0 "#PWR05" H 5900 4750 50  0001 C CNN
+F 1 "GNDREF" H 5900 4850 50  0000 C CNN
+F 2 "" H 5900 5000 50  0000 C CNN
+F 3 "" H 5900 5000 50  0000 C CNN
+	1    5900 5000
+	1    0    0    -1  
+$EndComp
+$Comp
+L R R4
+U 1 1 57A0B8B3
+P 5900 4500
+F 0 "R4" V 5980 4500 50  0000 C CNN
+F 1 "10K" V 5900 4500 50  0000 C CNN
+F 2 "Resistors_ThroughHole:Resistor_Horizontal_RM10mm" V 5830 4500 50  0001 C CNN
+F 3 "" H 5900 4500 50  0000 C CNN
+	1    5900 4500
+	1    0    0    -1  
+$EndComp
+$Comp
+L R R3
+U 1 1 57A0B987
+P 5900 3600
+F 0 "R3" V 5980 3600 50  0000 C CNN
+F 1 "10K" V 5900 3600 50  0000 C CNN
+F 2 "Resistors_ThroughHole:Resistor_Horizontal_RM10mm" V 5830 3600 50  0001 C CNN
+F 3 "" H 5900 3600 50  0000 C CNN
+	1    5900 3600
+	1    0    0    -1  
+$EndComp
+Text GLabel 6200 3200 2    60   Input ~ 0
+DOUT
+Text GLabel 5300 4000 0    60   Input ~ 0
+UART_RX
+$Comp
+L CONN_01X05 JP1
+U 1 1 57A0D9CA
+P 9400 4950
+F 0 "JP1" H 9400 5250 50  0000 C CNN
+F 1 "CONN_01X05" V 9500 4950 50  0000 C CNN
+F 2 "lib:Pin_Header_Angled_Inverted_1x05" H 9400 4950 50  0001 C CNN
+F 3 "" H 9400 4950 50  0000 C CNN
+	1    9400 4950
+	1    0    0    -1  
+$EndComp
+Text GLabel 8950 4850 0    60   Input ~ 0
+1V8
+Text GLabel 8950 5000 0    60   Input ~ 0
+UART_TX
+Text GLabel 8950 5150 0    60   Input ~ 0
+5V
+Text GLabel 8950 5300 0    60   Input ~ 0
+UART_RX
+$Comp
+L GNDREF #PWR06
+U 1 1 57A0DC85
+P 8250 4800
+F 0 "#PWR06" H 8250 4550 50  0001 C CNN
+F 1 "GNDREF" H 8250 4650 50  0000 C CNN
+F 2 "" H 8250 4800 50  0000 C CNN
+F 3 "" H 8250 4800 50  0000 C CNN
+	1    8250 4800
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	3250 6200 4100 6200
+Wire Wire Line
+	2050 6200 2850 6200
+Wire Wire Line
+	1550 1750 2650 1750
+Wire Wire Line
+	3450 1750 4550 1750
+Wire Wire Line
+	3050 2050 3050 2750
+Wire Wire Line
+	2150 1950 2150 1750
+Connection ~ 2150 1750
+Wire Wire Line
+	2150 2250 2150 2400
+Wire Wire Line
+	2150 2400 3950 2400
+Connection ~ 3050 2400
+Wire Wire Line
+	3950 2400 3950 2250
+Wire Wire Line
+	3950 1950 3950 1750
+Connection ~ 3950 1750
+Wire Wire Line
+	2350 5900 2350 6200
+Connection ~ 2350 6200
+Wire Wire Line
+	2350 4850 2350 5600
+Wire Wire Line
+	2950 5900 2950 5350
+Wire Wire Line
+	2950 5350 2350 5350
+Connection ~ 2350 5350
+Wire Wire Line
+	3700 5600 3700 4850
+Wire Wire Line
+	3700 5900 3700 6200
+Connection ~ 3700 6200
+Wire Wire Line
+	10100 2950 10100 3100
+Wire Wire Line
+	10100 3400 10100 3550
+Wire Wire Line
+	7550 3400 7550 3550
+Wire Wire Line
+	7550 2950 7550 3100
+Wire Wire Line
+	7950 2500 7550 2500
+Wire Wire Line
+	9750 2500 10100 2500
+Wire Wire Line
+	7800 2200 7950 2200
+Wire Wire Line
+	7800 1900 7950 1900
+Wire Wire Line
+	7800 2050 7950 2050
+Wire Wire Line
+	7950 2050 7950 2100
+Wire Wire Line
+	7900 3550 7900 3000
+Wire Wire Line
+	7900 3000 7950 3000
+Wire Wire Line
+	5900 4650 5900 5000
+Wire Wire Line
+	5900 3750 5900 4350
+Wire Wire Line
+	5900 3450 5900 3200
+Wire Wire Line
+	5900 3200 6200 3200
+Wire Wire Line
+	5300 4000 5900 4000
+Connection ~ 5900 4000
+Wire Wire Line
+	10100 2500 10100 2550
+Wire Wire Line
+	7550 2500 7550 2550
+Wire Wire Line
+	8950 4850 9200 4850
+Wire Wire Line
+	8950 5000 9050 5000
+Wire Wire Line
+	9050 5000 9050 4950
+Wire Wire Line
+	9050 4950 9200 4950
+Wire Wire Line
+	9200 5050 9100 5050
+Wire Wire Line
+	9100 5050 9100 5150
+Wire Wire Line
+	9100 5150 8950 5150
+Wire Wire Line
+	9150 5150 9150 5300
+Wire Wire Line
+	9150 5300 8950 5300
+Wire Wire Line
+	8250 4800 8250 4750
+Wire Wire Line
+	8250 4750 9200 4750
+Wire Wire Line
+	9150 5150 9200 5150
+Text GLabel 7800 2050 0    60   Input ~ 0
+DOUT
+$Comp
+L LED D1
+U 1 1 57A1227E
+P 7550 2750
+F 0 "D1" H 7550 2850 50  0000 C CNN
+F 1 "RED_LED" H 7550 2650 50  0000 C CNN
+F 2 "LEDs:LED-3MM" H 7550 2750 50  0001 C CNN
+F 3 "" H 7550 2750 50  0000 C CNN
+	1    7550 2750
+	0    -1   -1   0   
+$EndComp
+$Comp
+L LED D2
+U 1 1 57A12960
+P 10100 2750
+F 0 "D2" H 10100 2850 50  0000 C CNN
+F 1 "GREEN_LED" H 10100 2650 50  0000 C CNN
+F 2 "LEDs:LED-3MM" H 10100 2750 50  0001 C CNN
+F 3 "" H 10100 2750 50  0000 C CNN
+	1    10100 2750
+	0    -1   -1   0   
+$EndComp
+$EndSCHEMATC

@@ -1,0 +1,383 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<export version="D">
+  <design>
+    <source>/home/ehbello/src/tfg/xbee-pandaboard-adapter.kicad/xbee-pandaboard-adapter.sch</source>
+    <date>mar 02 ago 2016 16:15:36 WEST</date>
+    <tool>Eeschema 4.0.2+dfsg1-stable</tool>
+    <sheet number="1" name="/" tstamps="/">
+      <title_block>
+        <title>xbee-pandaboard-adapter</title>
+        <company/>
+        <rev>1.0</rev>
+        <date>2016-08-02</date>
+        <source>xbee-pandaboard-adapter.sch</source>
+        <comment number="1" value="(Based on wifly-adapter-board from Dirk Grappendorf)"/>
+        <comment number="2" value="CERN Open Hardware License 1.1"/>
+        <comment number="3" value="Enrique Hernández Bello &lt;ehbello@gmail.com&gt;"/>
+        <comment number="4" value=""/>
+      </title_block>
+    </sheet>
+  </design>
+  <components>
+    <comp ref="Q1">
+      <value>2N7000</value>
+      <footprint>TO_SOT_Packages_THT:TO-92_Inline_Narrow_Oval</footprint>
+      <libsource lib="m-pad-2.1" part="2N7000KL/BS170KL"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamp>57A09630</tstamp>
+    </comp>
+    <comp ref="IC1">
+      <value>MCP1700-3302E</value>
+      <footprint>TO_SOT_Packages_THT:TO-92_Inline_Narrow_Oval</footprint>
+      <libsource lib="mcp1702" part="MCP1702"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamp>57A09917</tstamp>
+    </comp>
+    <comp ref="C1">
+      <value>1µF</value>
+      <footprint>Capacitors_ThroughHole:C_Disc_D6_P5</footprint>
+      <libsource lib="device" part="CP"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamp>57A09B41</tstamp>
+    </comp>
+    <comp ref="C2">
+      <value>1µF</value>
+      <footprint>Capacitors_ThroughHole:C_Disc_D6_P5</footprint>
+      <libsource lib="device" part="CP"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamp>57A09F25</tstamp>
+    </comp>
+    <comp ref="R1">
+      <value>10K</value>
+      <footprint>Resistors_ThroughHole:Resistor_Horizontal_RM7mm</footprint>
+      <libsource lib="device" part="R"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamp>57A0A0CB</tstamp>
+    </comp>
+    <comp ref="R2">
+      <value>10K</value>
+      <footprint>Resistors_ThroughHole:Resistor_Horizontal_RM7mm</footprint>
+      <libsource lib="device" part="R"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamp>57A0A15D</tstamp>
+    </comp>
+    <comp ref="XB1">
+      <value>XBEE-1B3</value>
+      <footprint>XBee:XBee</footprint>
+      <libsource lib="modules_droids" part="XBEE"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamp>57A0A3D5</tstamp>
+    </comp>
+    <comp ref="R5">
+      <value>1Ω</value>
+      <footprint>Resistors_ThroughHole:Resistor_Horizontal_RM7mm</footprint>
+      <libsource lib="device" part="R"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamp>57A0A816</tstamp>
+    </comp>
+    <comp ref="R6">
+      <value>1Ω</value>
+      <footprint>Resistors_ThroughHole:Resistor_Horizontal_RM7mm</footprint>
+      <libsource lib="device" part="R"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamp>57A0A9FA</tstamp>
+    </comp>
+    <comp ref="R4">
+      <value>10K</value>
+      <footprint>Resistors_ThroughHole:Resistor_Horizontal_RM7mm</footprint>
+      <libsource lib="device" part="R"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamp>57A0B8B3</tstamp>
+    </comp>
+    <comp ref="R3">
+      <value>10K</value>
+      <footprint>Resistors_ThroughHole:Resistor_Horizontal_RM7mm</footprint>
+      <libsource lib="device" part="R"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamp>57A0B987</tstamp>
+    </comp>
+    <comp ref="JP1">
+      <value>CONN_01X05</value>
+      <footprint>Pin_Headers:Pin_Header_Straight_1x05</footprint>
+      <libsource lib="conn" part="CONN_01X05"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamp>57A0D9CA</tstamp>
+    </comp>
+    <comp ref="D1">
+      <value>RED_LED</value>
+      <footprint>LEDs:LED-3MM</footprint>
+      <libsource lib="device" part="LED"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamp>57A1227E</tstamp>
+    </comp>
+    <comp ref="D2">
+      <value>GREEN_LED</value>
+      <footprint>LEDs:LED-3MM</footprint>
+      <libsource lib="device" part="LED"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamp>57A12960</tstamp>
+    </comp>
+  </components>
+  <libparts>
+    <libpart lib="m-pad-2.1" part="2N7000KL/BS170KL">
+      <fields>
+        <field name="Reference">Q</field>
+        <field name="Value">2N7000KL/BS170KL</field>
+        <field name="Footprint">m-pad-2.1-TO92</field>
+      </fields>
+      <pins>
+        <pin num="1" name="S" type="passive"/>
+        <pin num="2" name="G" type="passive"/>
+        <pin num="3" name="D" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="conn" part="CONN_01X05">
+      <description>Connector 01x05</description>
+      <footprints>
+        <fp>Pin_Header_Straight_1X05</fp>
+        <fp>Pin_Header_Angled_1X05</fp>
+        <fp>Socket_Strip_Straight_1X05</fp>
+        <fp>Socket_Strip_Angled_1X05</fp>
+      </footprints>
+      <fields>
+        <field name="Reference">P</field>
+        <field name="Value">CONN_01X05</field>
+      </fields>
+      <pins>
+        <pin num="1" name="P1" type="passive"/>
+        <pin num="2" name="P2" type="passive"/>
+        <pin num="3" name="P3" type="passive"/>
+        <pin num="4" name="P4" type="passive"/>
+        <pin num="5" name="P5" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="device" part="CP">
+      <description>Polarised capacitor</description>
+      <footprints>
+        <fp>CP*</fp>
+        <fp>Elko*</fp>
+        <fp>TantalC*</fp>
+        <fp>C*elec</fp>
+        <fp>c_elec*</fp>
+        <fp>SMD*_Pol</fp>
+      </footprints>
+      <fields>
+        <field name="Reference">C</field>
+        <field name="Value">CP</field>
+      </fields>
+      <pins>
+        <pin num="1" name="~" type="passive"/>
+        <pin num="2" name="~" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="device" part="LED">
+      <footprints>
+        <fp>LED-3MM</fp>
+        <fp>LED-5MM</fp>
+        <fp>LED-10MM</fp>
+        <fp>LED-0603</fp>
+        <fp>LED-0805</fp>
+        <fp>LED-1206</fp>
+        <fp>LEDV</fp>
+      </footprints>
+      <fields>
+        <field name="Reference">D</field>
+        <field name="Value">LED</field>
+      </fields>
+      <pins>
+        <pin num="1" name="K" type="passive"/>
+        <pin num="2" name="A" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="mcp1702" part="MCP1702">
+      <aliases>
+        <alias>LM7805</alias>
+        <alias>LM7812</alias>
+        <alias>78L05</alias>
+      </aliases>
+      <description>Linear Regulator +5V</description>
+      <docs>regulator/lm78*.*</docs>
+      <footprints>
+        <fp>SOT89</fp>
+        <fp>SOT-23A</fp>
+        <fp>TO92-INVERT</fp>
+      </footprints>
+      <fields>
+        <field name="Reference">U</field>
+        <field name="Value">MCP1702</field>
+      </fields>
+      <pins>
+        <pin num="1" name="GND" type="input"/>
+        <pin num="2" name="VI" type="input"/>
+        <pin num="3" name="VO" type="power_out"/>
+      </pins>
+    </libpart>
+    <libpart lib="device" part="R">
+      <description>Resistor</description>
+      <footprints>
+        <fp>R_*</fp>
+        <fp>Resistor_*</fp>
+      </footprints>
+      <fields>
+        <field name="Reference">R</field>
+        <field name="Value">R</field>
+      </fields>
+      <pins>
+        <pin num="1" name="~" type="passive"/>
+        <pin num="2" name="~" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="modules_droids" part="XBEE">
+      <fields>
+        <field name="Reference">U</field>
+        <field name="Value">XBEE</field>
+      </fields>
+      <pins>
+        <pin num="1" name="Vcc" type="power_in"/>
+        <pin num="2" name="Dout" type="output"/>
+        <pin num="3" name="Din/Conf" type="input"/>
+        <pin num="4" name="Do8" type="output"/>
+        <pin num="5" name="/Rst" type="passive"/>
+        <pin num="6" name="PWM/RSSI" type="output"/>
+        <pin num="7" name="Nc0" type="passive"/>
+        <pin num="8" name="Nc1" type="passive"/>
+        <pin num="9" name="/DTR/Sleep_RQ/Di8" type="input"/>
+        <pin num="10" name="Gnd" type="power_in"/>
+        <pin num="11" name="AD4/Dio4" type="passive"/>
+        <pin num="12" name="/CTS/Dio7" type="passive"/>
+        <pin num="13" name="ON//Sleep" type="output"/>
+        <pin num="14" name="Vref" type="input"/>
+        <pin num="15" name="Asso/AD5/Dio5" type="passive"/>
+        <pin num="16" name="/RTS/AD6/Dio6" type="passive"/>
+        <pin num="17" name="AD3/Dio3" type="passive"/>
+        <pin num="18" name="AD2/Dio2" type="passive"/>
+        <pin num="19" name="AD1/Dio1" type="passive"/>
+        <pin num="20" name="AD0/Dio0" type="passive"/>
+      </pins>
+    </libpart>
+  </libparts>
+  <libraries>
+    <library logical="mcp1702">
+      <uri>/home/ehbello/src/tfg/kicad/sot89/mcp1702.lib</uri>
+    </library>
+    <library logical="conn">
+      <uri>/usr/share/kicad/library/conn.lib</uri>
+    </library>
+    <library logical="m-pad-2.1">
+      <uri>/home/ehbello/src/tfg/kicad/m-pad-2.1/m-pad-2.1.lib</uri>
+    </library>
+    <library logical="device">
+      <uri>/usr/share/kicad/library/device.lib</uri>
+    </library>
+    <library logical="modules_droids">
+      <uri>/home/ehbello/src/tfg/kicad/xbee/module_droids/modules_droids.lib</uri>
+    </library>
+  </libraries>
+  <nets>
+    <net code="1" name="3V3">
+      <node ref="R2" pin="1"/>
+      <node ref="XB1" pin="1"/>
+      <node ref="C2" pin="1"/>
+      <node ref="IC1" pin="3"/>
+    </net>
+    <net code="2" name="DIN">
+      <node ref="R2" pin="2"/>
+      <node ref="XB1" pin="3"/>
+      <node ref="Q1" pin="3"/>
+    </net>
+    <net code="3" name="Net-(D2-Pad1)">
+      <node ref="D2" pin="1"/>
+      <node ref="R6" pin="1"/>
+    </net>
+    <net code="4" name="Net-(D1-Pad1)">
+      <node ref="D1" pin="1"/>
+      <node ref="R5" pin="1"/>
+    </net>
+    <net code="5" name="GNDREF">
+      <node ref="C2" pin="2"/>
+      <node ref="R6" pin="2"/>
+      <node ref="R5" pin="2"/>
+      <node ref="IC1" pin="1"/>
+      <node ref="XB1" pin="10"/>
+      <node ref="C1" pin="2"/>
+      <node ref="JP1" pin="1"/>
+      <node ref="R4" pin="2"/>
+    </net>
+    <net code="6" name="UART_TX">
+      <node ref="R1" pin="2"/>
+      <node ref="JP1" pin="3"/>
+    </net>
+    <net code="7" name="1V8">
+      <node ref="R1" pin="1"/>
+      <node ref="Q1" pin="2"/>
+      <node ref="JP1" pin="2"/>
+    </net>
+    <net code="8" name="5V">
+      <node ref="JP1" pin="4"/>
+      <node ref="IC1" pin="2"/>
+      <node ref="C1" pin="1"/>
+    </net>
+    <net code="9" name="UART_RX">
+      <node ref="JP1" pin="5"/>
+      <node ref="R3" pin="2"/>
+      <node ref="R4" pin="1"/>
+    </net>
+    <net code="10" name="Net-(D1-Pad2)">
+      <node ref="D1" pin="2"/>
+      <node ref="XB1" pin="6"/>
+    </net>
+    <net code="11" name="Net-(D2-Pad2)">
+      <node ref="D2" pin="2"/>
+      <node ref="XB1" pin="15"/>
+    </net>
+    <net code="12" name="DOUT">
+      <node ref="XB1" pin="2"/>
+      <node ref="R3" pin="1"/>
+    </net>
+    <net code="13" name="Net-(XB1-Pad4)">
+      <node ref="XB1" pin="4"/>
+    </net>
+    <net code="14" name="Net-(XB1-Pad5)">
+      <node ref="XB1" pin="5"/>
+    </net>
+    <net code="15" name="Net-(XB1-Pad7)">
+      <node ref="XB1" pin="7"/>
+    </net>
+    <net code="16" name="Net-(XB1-Pad8)">
+      <node ref="XB1" pin="8"/>
+    </net>
+    <net code="17" name="Net-(XB1-Pad9)">
+      <node ref="XB1" pin="9"/>
+    </net>
+    <net code="18" name="Net-(XB1-Pad20)">
+      <node ref="XB1" pin="20"/>
+    </net>
+    <net code="19" name="Net-(XB1-Pad11)">
+      <node ref="XB1" pin="11"/>
+    </net>
+    <net code="20" name="Net-(Q1-Pad1)">
+      <node ref="Q1" pin="1"/>
+    </net>
+    <net code="21" name="Net-(XB1-Pad19)">
+      <node ref="XB1" pin="19"/>
+    </net>
+    <net code="22" name="Net-(XB1-Pad18)">
+      <node ref="XB1" pin="18"/>
+    </net>
+    <net code="23" name="Net-(XB1-Pad17)">
+      <node ref="XB1" pin="17"/>
+    </net>
+    <net code="24" name="Net-(XB1-Pad16)">
+      <node ref="XB1" pin="16"/>
+    </net>
+    <net code="25" name="Net-(XB1-Pad14)">
+      <node ref="XB1" pin="14"/>
+    </net>
+    <net code="26" name="Net-(XB1-Pad13)">
+      <node ref="XB1" pin="13"/>
+    </net>
+    <net code="27" name="Net-(XB1-Pad12)">
+      <node ref="XB1" pin="12"/>
+    </net>
+  </nets>
+</export>
