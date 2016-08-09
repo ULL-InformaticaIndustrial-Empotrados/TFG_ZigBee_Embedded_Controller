@@ -12,6 +12,8 @@ apps:
     daemon: simple
     slots:
       - mir
+    plugs:
+      - opengl
 parts:
   server:
     plugin: cmake
