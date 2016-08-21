@@ -18,6 +18,21 @@ define(['app'], function (app) {
 			if (name!='Unknown') {
 				$( "#dialog-renamedevice #devicename" ).val(unescape(itemname));
 			}
+			$("#dialog-renamedevice #vdevicetopic").hide();
+            $("#dialog-renamedevice #devicetopic").val("");
+			$("#dialog-renamedevice").i18n();
+			$("#dialog-renamedevice").dialog( "open" );
+		}
+
+		RenameMqttDevice = function(idx,itype,itemname,devtopic)
+		{
+			$.devType=itype;
+			$.devIdx = idx;
+			if (name!='Unknown') {
+				$( "#dialog-renamedevice #devicename" ).val(unescape(itemname));
+			}
+			$("#dialog-renamedevice #vdevicetopic").show();
+            $("#dialog-renamedevice #devicetopic").val(devtopic);
 			$("#dialog-renamedevice").i18n();
 			$("#dialog-renamedevice").dialog( "open" );
 		}
@@ -280,12 +295,17 @@ define(['app'], function (app) {
 				  }
 				  if ((item.Type == "Group")||(item.Type == "Scene")) {
 					itemSubIcons+='&nbsp;<img src="images/empty16.png">';
-					itemSubIcons+='<img src="images/rename.png" title="' + $.t('Rename Device') +'" onclick="RenameDevice(' + item.idx +',\'' + item.Type +'\',\'' + escape(item.Name) + '\')">';
+					itemSubIcons+='<img src="images/rename.png" title="' + $.t('Rename Device') +'" onclick="RenameDevice(' + item.idx +',\'' + item.Type +'\',\'' + escape(item.Name) + '\',\'' + item.HardwareType + '\')">';
 				  }
 				  else {
 					  if (item.Used!=0) {
 						itemSubIcons+='<img src="images/remove.png" title="' + $.t('Set Unused') +'" onclick="SetUnused(' + item.idx +')">';
-						itemSubIcons+='<img src="images/rename.png" title="' + $.t('Rename Device') +'" onclick="RenameDevice(' + item.idx +',\'' + item.Type+'\',\'' + escape(item.Name) + '\')">';
+						if (item.HardwareType.indexOf("MQTT") >= 0) {
+							itemSubIcons+='<img src="images/rename.png" title="' + $.t('Rename Device') +'" onclick="RenameMqttDevice(' + item.idx +',\'' + item.Type+'\',\'' + escape(item.Name) + '\',\'' + item.DeviceTopic + '\')">';
+						}
+						else {
+							itemSubIcons+='<img src="images/rename.png" title="' + $.t('Rename Device') +'" onclick="RenameDevice(' + item.idx +',\'' + item.Type+'\',\'' + escape(item.Name) + '\')">';
+						}
 					  }
 					  else {
 						if (
@@ -298,7 +318,12 @@ define(['app'], function (app) {
 						else {
 							itemSubIcons+='<img src="images/add.png" title="' + $.t('Add Device') +'" onclick="AddDevice(' + item.idx +',\'' + escape(item.Name) + '\')">';
 						}
-						itemSubIcons+='<img src="images/rename.png" title="' + $.t('Rename Device') +'" onclick="RenameDevice(' + item.idx +',\'' + item.Type +'\',\'' + escape(item.Name) + '\')">';
+						if (item.HardwareType.indexOf("MQTT") >= 0) {
+							itemSubIcons+='<img src="images/rename.png" title="' + $.t('Rename Device') +'" onclick="RenameMqttDevice(' + item.idx +',\'' + item.Type+'\',\'' + escape(item.Name) + '\',\'' + item.DeviceTopic + '\')">';
+						}
+						else {
+							itemSubIcons+='<img src="images/rename.png" title="' + $.t('Rename Device') +'" onclick="RenameDevice(' + item.idx +',\'' + item.Type+'\',\'' + escape(item.Name) + '\')">';
+						}
 					  }
 				  }
 				  if (
@@ -498,6 +523,7 @@ define(['app'], function (app) {
 			dialog_renamedevice_buttons[$.t("Rename Device")]=function() {
 			  var bValid = true;
 			  bValid = bValid && checkLength( $("#dialog-renamedevice #devicename"), 2, 100 );
+			  bValid = bValid && checkLength( $("#dialog-renamedevice #devicetopic"), 2, 100 );
 			  if ( bValid ) {
 				  $( this ).dialog( "close" );
 				  var durl;
@@ -506,6 +532,11 @@ define(['app'], function (app) {
 				  }
 				  else {
 					durl="json.htm?type=command&param=renamedevice&idx=" + $.devIdx + '&name=' + encodeURIComponent($("#dialog-renamedevice #devicename").val());
+					var DeviceTopic = $("#dialog-renamedevice #devicetopic").val();
+					if (DeviceTopic != "")
+					{
+						durl += '&sensoroptions=DeviceTopic:' + encodeURIComponent(DeviceTopic);
+					}
 				  }
 				  $.ajax({
 					 url: durl,

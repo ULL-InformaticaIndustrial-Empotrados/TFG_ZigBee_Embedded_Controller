@@ -498,6 +498,7 @@ namespace http {
 			RegisterCommandCode("updatecustomicon", boost::bind(&CWebServer::Cmd_UpdateCustomIcon, this, _1, _2, _3));
 
 			RegisterCommandCode("renamedevice", boost::bind(&CWebServer::Cmd_RenameDevice, this, _1, _2, _3));
+			RegisterCommandCode("editdeviceoptions", boost::bind(&CWebServer::Cmd_EditDeviceOptions, this, _1, _2, _3));
 			RegisterCommandCode("setunused", boost::bind(&CWebServer::Cmd_SetUnused, this, _1, _2, _3));
 
 			RegisterCommandCode("addlogmessage", boost::bind(&CWebServer::Cmd_AddLogMessage, this, _1, _2, _3));
@@ -7479,6 +7480,11 @@ namespace http {
 					root["result"][ii]["idx"] = sd[0];
 					root["result"][ii]["Protected"] = (iProtected != 0);
 
+					if (options.find("DeviceTopic") != options.end())
+					{
+						root["result"][ii]["DeviceTopic"] = options["DeviceTopic"];
+					}
+
 					CDomoticzHardwareBase *pHardware = m_mainworker.GetHardware(hardwareID);
 					if (pHardware != NULL)
 					{
@@ -9119,19 +9125,16 @@ namespace http {
 						}
 						else if (dSubType == sTypeCustom)
 						{
-							std::string szAxesLabel = "";
-							int SensorType = 1;
-							std::vector<std::string> sResults;
-							StringSplit(sOptions, ";", sResults);
+							std::string SensorType = options["SensorType"];
+							std::string szAxesLabel = options["SensorUnit"];
 
-							if (sResults.size() == 2)
-							{
-								SensorType = atoi(sResults[0].c_str());
-								szAxesLabel = sResults[1];
+							if (SensorType.empty()) {
+								SensorType.assign("1"); // default "1"
 							}
 							sprintf(szData, "%g %s", atof(sValue.c_str()), szAxesLabel.c_str());
+
 							root["result"][ii]["Data"] = szData;
-							root["result"][ii]["SensorType"] = SensorType;
+							root["result"][ii]["SensorType"] = atoi(SensorType.c_str());
 							root["result"][ii]["SensorUnit"] = szAxesLabel;
 							root["result"][ii]["HaveTimeout"] = bHaveTimeout;
 
@@ -10436,6 +10439,41 @@ namespace http {
 			ReloadCustomSwitchIcons();
 			}
 
+		void CWebServer::Cmd_EditDeviceOptions(WebEmSession & session, const request& req, Json::Value &root)
+		{
+			if (session.rights != 2)
+			{
+				//No admin user, and not allowed to be here
+				return;
+			}
+
+			std::string idx = request::findValue(&req, "idx");
+			std::string soptions = request::findValue(&req, "sensoroptions");
+
+			if ((idx == "") || (soptions.empty()))
+				return;
+
+			std::map<std::string, std::string> mOptions = m_sql.GetDeviceOptions(idx);
+			std::map<std::string, std::string> mNewOptions = m_sql.BuildDeviceOptions(soptions.c_str(), false);
+			std::map<std::string, std::string>::iterator itt;
+			std::map<std::string, std::string>::iterator toReplace;
+			for (itt=mNewOptions.begin(); itt!=mNewOptions.end(); ++itt)
+			{
+				toReplace = mOptions.find(itt->first.c_str());
+				if (toReplace != mOptions.end())
+				{
+					// Only edit if key exists
+					toReplace->second = itt->second;
+				}
+			}
+
+			int DeviceID = atoi(idx.c_str());
+			m_sql.SetDeviceOptions(DeviceID, mOptions);
+
+			root["status"] = "OK";
+			root["title"] = "EditDeviceOptions";
+		}
+
 		void CWebServer::Cmd_RenameDevice(WebEmSession & session, const request& req, Json::Value &root)
 		{
 			if (session.rights != 2)
@@ -10449,6 +10487,9 @@ namespace http {
 				)
 				return;
 			int idx = atoi(sidx.c_str());
+
+			Cmd_EditDeviceOptions(session, req, root);
+
 			root["status"] = "OK";
 			root["title"] = "RenameDevice";
 

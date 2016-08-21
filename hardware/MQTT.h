@@ -31,6 +31,7 @@ public:
 public:
 	// signals
 	boost::signals2::signal<void()>	sDisconnected;
+	bool WriteToHardware(const char *pdata, const unsigned char length);
 private:
 	bool StartHardware();
 	bool StopHardware();
@@ -56,7 +57,8 @@ protected:
 	enum _ePublishTopics {
 		PT_none 	  = 0x00,
 		PT_out  	  = 0x01, 	// publish on domoticz/out
-		PT_floor_room = 0x02 	// publish on domoticz/<floor>/<room>
+		PT_floor_room = 0x02, 	// publish on domoticz/out/<floor>/<room>
+		PT_dev_topic  = 0x04	// publish on domoticz/out/<devtopic>
 	};
 	_ePublishTopics m_publish_topics;
 };

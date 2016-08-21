@@ -337,7 +337,7 @@ namespace http {
 						//Set switch type to selector
 						m_sql.safe_query("UPDATE DeviceStatus SET SwitchType=%d WHERE (ID==%llu)", STYPE_Selector, DeviceRowIdx);
 						//Set default device options
-						m_sql.SetDeviceOptions(DeviceRowIdx, m_sql.BuildDeviceOptions("SelectorStyle:0;LevelNames:Off|Level1|Level2|Level3", false));
+						soptions += "SelectorStyle:0;LevelNames:Off|Level1|Level2|Level3";
 					}
 					bCreated = true;
 				}
@@ -363,20 +363,22 @@ namespace http {
 					std::string rID = std::string(ID);
 					padLeft(rID, 8, '0');
 					DeviceRowIdx = m_sql.UpdateValue(HwdID, rID.c_str(), 1, pTypeGeneral, sTypeCustom, 12, 255, 0, "0.0", devname);
-					if (DeviceRowIdx != -1)
-					{
-						//Set the Label
-						m_sql.safe_query("UPDATE DeviceStatus SET Options='%q' WHERE (ID==%llu)", soptions.c_str(), DeviceRowIdx);
-					}
 					bCreated = true;
 				}
 				break;
+			}
+
+			if ((DeviceRowIdx != -1) && (!soptions.empty()))
+			{
+				//Set device options
+				m_sql.SetDeviceOptions(DeviceRowIdx, m_sql.BuildDeviceOptions(soptions.c_str(), false));
 			}
 
 			m_sql.m_bAcceptNewHardware = bPrevAcceptNewHardware;
 
 			if (bCreated)
 			{
+				m_mainworker.sOnDeviceReceived(HwdID, DeviceRowIdx, ssensorname, NULL);
 				root["status"] = "OK";
 				root["title"] = "CreateVirtualSensor";
 			}

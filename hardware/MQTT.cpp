@@ -80,6 +80,11 @@ bool MQTT::StopHardware()
 	return true;
 }
 
+bool MQTT::WriteToHardware(const char *pdata, const unsigned char length)
+{
+	    return true;
+}
+
 void MQTT::on_subscribe(int mid, int qos_count, const int *granted_qos)
 {
 	_log.Log(LOG_STATUS, "MQTT: Subscribed");
@@ -584,6 +589,17 @@ void MQTT::SendDeviceInfo(const int m_HwdID, const unsigned long long DeviceRowI
 
 				SendMessage(topic.str() , message);
 			}
+		}
+
+		if (m_publish_topics & PT_dev_topic)
+		{
+			std::string devtopic = options["DeviceTopic"];
+			std::stringstream topic;
+			topic << TOPIC_OUT;
+			if (!boost::starts_with(devtopic, "/"))
+				topic << "/";
+			topic << devtopic;
+			SendMessage(topic.str() , message);
 		}
 	}
 }

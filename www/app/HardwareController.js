@@ -4089,12 +4089,21 @@ define(['app'], function (app) {
 			}
 		}
 
-        CreateDummySensors = function(idx,name)
+        CreateDummySensors = function(idx,hwType,name)
         {
 			$.devIdx=idx;
 
+
             $("#dialog-createsensor #vsensoraxis").hide();
             $("#dialog-createsensor #sensoraxis").val("");
+
+            if (hwType == "MQTT") {
+                $("#dialog-createsensor #vdevicetopic").show();
+            }
+            else {
+                $("#dialog-createsensor #vdevicetopic").hide();
+            }
+            $("#dialog-createsensor #devicetopic").val("");
 
 			$("#dialog-createsensor #sensortype").change(function() {
 				OnDummySensorTypeChange();
@@ -4121,7 +4130,7 @@ define(['app'], function (app) {
                                 bootbox.alert($.t('No Sensor Type Selected!'));
                                 return ;
                             }
-                            var extraSendData="";
+                            var extraSendData="&sensoroptions=";
                             if (SensorType==1004) {
 								var AxisLabel=$("#dialog-createsensor #sensoraxis").val();
 								if (AxisLabel=="")
@@ -4129,7 +4138,16 @@ define(['app'], function (app) {
 									ShowNotify($.t('Please enter a Axis Label!'), 2500, true);
 									return;
 								}
-								extraSendData="&sensoroptions=1;" + encodeURIComponent(AxisLabel);
+								extraSendData+="SensorUnit:" + encodeURIComponent(AxisLabel);
+                            }
+                            if (hwType=="MQTT") {
+								var DeviceTopic=$("#dialog-createsensor #devicetopic").val();
+								if (DeviceTopic=="")
+								{
+									ShowNotify($.t('Please enter a Device topic!'), 2500, true);
+									return;
+								}
+								extraSendData+="DeviceTopic:" + encodeURIComponent(DeviceTopic);
                             }
                             $.ajax({
                                  url: "json.htm?type=createvirtualsensor&idx=" + $.devIdx +
@@ -4301,13 +4319,16 @@ define(['app'], function (app) {
                         HwTypeStr += ' <span class="label label-info lcursor" onclick="EditLMS(' + item.idx + ',\'' + item.Name + '\',' + item.Mode1 + ',' + item.Mode2 + ',' + item.Mode3 + ',' + item.Mode4 + ',' + item.Mode5 + ',' + item.Mode6 + ');">' + $.t("Setup") + '</span>';
                     }
                     else if (HwTypeStr.indexOf("Dummy") >= 0) {
-                        HwTypeStr+=' <span class="label label-info lcursor" onclick="CreateDummySensors(' + item.idx + ',\'' + item.Name + '\');">' + $.t("Create Virtual Sensors") + '</span>';
+                        HwTypeStr+=' <span class="label label-info lcursor" onclick="CreateDummySensors(' + item.idx + ',\'Dummy\',\'' + item.Name + '\');">' + $.t("Create Virtual Sensors") + '</span>';
+                    }
+                    else if (HwTypeStr.indexOf("MQTT") >= 0) {
+                        HwTypeStr+=' <span class="label label-info lcursor" onclick="CreateDummySensors(' + item.idx + ',\'MQTT\',\'' + item.Name + '\');">' + $.t("Add MQTT Devices") + '</span>';
                     }
                     else if (HwTypeStr.indexOf("PiFace") >= 0) {
                         HwTypeStr+=' <span class="label label-info lcursor" onclick="ReloadPiFace(' + item.idx + ',\'' + item.Name + '\');">' + $.t("Reload") + '</span>';
                     }
                     else if (HwTypeStr.indexOf("HTTP/HTTPS") >= 0) {
-                        HwTypeStr+=' <span class="label label-info lcursor" onclick="CreateDummySensors(' + item.idx + ',\'' + item.Name + '\');">' + $.t("Create Virtual Sensors") + '</span>';
+                        HwTypeStr+=' <span class="label label-info lcursor" onclick="CreateDummySensors(' + item.idx + ',\'HTTP/HTTPS\',\'' + item.Name + '\');">' + $.t("Create Virtual Sensors") + '</span>';
                     }
                     else if (HwTypeStr.indexOf("RFLink") >= 0) {
                         HwTypeStr+='<br>Version: ' + item.version;
