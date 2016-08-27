@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include "MQTT.h"
+#include "Dummy.h"
 #include "../main/Logger.h"
 #include "../main/Helper.h"
 #include <iostream>
@@ -355,6 +356,16 @@ void MQTT::on_message(const struct mosquitto_message *message)
 	else if (szCommand == "getsceneinfo")
 	{
 		SendSceneInfo(idx, "request scene");
+	}
+	else if (szCommand == "createvirtualsensor")
+	{
+		if (root["sensorname"].empty() || root["sensortype"].empty() || root["sensoroptions"].empty())
+			goto mqttinvaliddata;
+		
+		std::string ssensorname = root["sensorname"].asString();
+		std::string ssensortype = root["sensortype"].asString();
+		std::string soptions = root["sensoroptions"].asString();
+		CDummy::CreateVirtualSensor(m_HwdID, ssensorname, ssensortype, soptions);
 	}
 	else
 	{
