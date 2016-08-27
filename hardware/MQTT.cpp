@@ -7,7 +7,7 @@
 #include "../main/localtime_r.h"
 #include "../main/mainworker.h"
 #include "../main/SQLHelper.h"
-#include "../json/json.h"
+#include "../webserver/Base64.h"
 #include "../notifications/NotificationHelper.h"
 
 #define RETRY_DELAY 30
@@ -134,18 +134,43 @@ void MQTT::on_message(const struct mosquitto_message *message)
 		ProcessMySensorsMessage(qMessage);
 		return;
 	}
-	else if (topic != TOPIC_IN)
-		return;
+
 	Json::Value root;
 	Json::Reader jReader;
-	std::string szCommand = "udevice";
-	std::vector<std::vector<std::string> > result;
-	unsigned long long idx = 0;
 
 	bool ret = jReader.parse(qMessage, root);
 	if (!ret)
-		goto mqttinvaliddata;
+	{
+		_log.Log(LOG_ERROR, "MQTT: Invalid data received!");
+		return;
+	}
 
+	if (topic == TOPIC_IN)
+	{
+		on_message(root);
+		return;
+	}
+	else if (!boost::starts_with(topic, TOPIC_IN))
+		return;
+
+	std::string in_topic = TOPIC_IN;
+	std::string sdevtopic = topic.substr(in_topic.size());
+	std::string sencoded = base64_encode((const unsigned char*)sdevtopic.c_str(), sdevtopic.size());
+
+	std::vector<std::vector<std::string> > result;
+	result = m_sql.safe_query("SELECT DeviceID FROM DeviceStatus WHERE (Options LIKE '%%DeviceTopic:%s%%')", sencoded);
+	for(size_t i=0 ; i<result.size(); i++)
+	{
+		root["idx"] = result[i][0];
+		on_message(root);
+	}
+}
+
+void MQTT::on_message(Json::Value &root)
+{
+	std::string szCommand = "udevice";
+	std::vector<std::vector<std::string> > result;
+	unsigned long long idx = 0;
 
 	if (!root["command"].empty())
 	{

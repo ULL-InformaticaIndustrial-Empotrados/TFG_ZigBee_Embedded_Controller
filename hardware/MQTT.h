@@ -1,6 +1,7 @@
 #pragma once
 
 #include "MySensorsBase.h"
+#include "../json/json.h"
 #ifdef BUILTIN_MQTT
 #include "../MQTT/mosquittopp.h"
 #else
@@ -21,6 +22,7 @@ public:
 	void on_connect(int rc);
 	void on_disconnect(int rc);
 	void on_message(const struct mosquitto_message *message);
+	void on_message(Json::Value &root);
 	void on_subscribe(int mid, int qos_count, const int *granted_qos);
 
 	void OnMQTTMessage(char *topicName, int topicLen,  void *pMessage);
