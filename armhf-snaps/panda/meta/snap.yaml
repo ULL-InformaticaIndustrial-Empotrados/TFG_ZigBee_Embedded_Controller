@@ -1,0 +1,37 @@
+name: panda
+vendor: Enrique Hernández Bello <ehbello@gmail.com>
+icon: meta/panda.png
+license: meta/readme.md
+version: 0.2
+type: gadget
+
+config:
+  ubuntu-core:
+    hostname: panda
+    services:
+        - name: ssh
+          enabled: true
+
+gadget:
+  branding:
+    name: PandaBoard
+    logo: meta/panda.png
+  software:
+    preinstalled:
+        - webdm
+  hardware:
+    platform: panda
+    architecture: armhf
+    partition-layout: minimal
+    bootloader: u-boot
+    boot-assets:
+      files:
+        - path: uEnv.txt
+        - path: MLO
+        - path: u-boot.img
+        - path: uboot.env
+      raw-files:
+        - path: MLO
+          offset: 131072 # @ 128kB
+        - path: u-boot.img
+          offset: 393216 # @ 384kB
