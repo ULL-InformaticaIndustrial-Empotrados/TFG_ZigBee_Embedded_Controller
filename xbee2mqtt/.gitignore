@@ -1,0 +1,12 @@
+*.pyo
+*.pyc
+*.cfg
+!*.cfg.sample
+*.yaml
+!*.yaml.sample
+var/log/*
+var/run/*
+.venv
+.coverage
+!.empty
+

@@ -1,0 +1,56 @@
+daemon:
+    pidfile: /tmp/xbee2mqtt.pid
+    stderr: /tmp/xbee2mqtt.err
+    stdout: /tmp/xbee2mqtt.log
+
+    logging_level: 10
+
+general:
+    discovery_on_connect: True
+    duplicate_check_window: 5
+    expose_undefined_topics: False
+    default_topic_pattern: /raw/xbee/{address}/{port}
+
+    routes:
+        0013a200407b6d06:
+            battery: /home/powermeter/sensor/battery
+            power: /home/general/power
+        0013a200406bfd09:
+            adc-7: /home/door/sensor/battery
+            dio-12: /home/door/status
+        0013a2004092d70b:
+            dio-10: /test/dio10
+            dio-11: /test/dio11
+
+radio:
+    port: /dev/ttyUSB0
+    baudrate: 57600
+    default_port_name: serial
+
+mqtt:
+    client_id: xbee2mqtt
+    host: localhost
+    port: 1883
+    username: null
+    password: null
+    keepalive: 60
+    clean_session: False
+    qos: 0
+    retain: True
+    status_topic: /service/xbee2mqtt/status
+    set_will: False
+
+processor:
+    filters:
+        /benavent/door/sensor/battery:
+            type: linear
+            parameters:
+                slope: 1.171875
+                offset: 0
+
+        /benavent/door/status:
+            type: enum
+            parameters:
+                1: 'Closed'
+                0: 'Open'
+
