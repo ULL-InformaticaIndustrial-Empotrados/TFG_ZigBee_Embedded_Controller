@@ -1,0 +1,30 @@
+name: gopaste
+version: 1.0
+summary: Simple pasting tool
+description: Runs a service that allows you to paste to and share.
+confinement: strict
+
+apps:
+  gopaste:
+    command: bin/gopaste
+    daemon: simple
+    plugs:
+      - network
+      - network-bind
+
+parts:
+  gopaste:
+    plugin: go
+    source: https://github.com/wisnij/gopaste.git
+    source-type: git
+  assets:
+    plugin: copy
+    source: https://github.com/wisnij/gopaste.git
+    source-type: git
+    files:
+      static: .
+      web.template: .
+  glue:
+    plugin: copy
+    files:
+      gopaste: bin/
