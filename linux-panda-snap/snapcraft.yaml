@@ -1,0 +1,33 @@
+name: linux-panda
+version: 4.4.15
+summary: A PandaBoard kernel built from source
+description: This is the reference kernel for PandaBoard and PandaBoard ES
+type: kernel
+confinement: devmode
+architectures: [armhf]
+
+parts:
+    kernel:
+        plugin: kernel
+        source: https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable.git
+        source-tag: v4.4.15
+        source-type: git
+        kdefconfig: [omap2plus_defconfig]
+        kconfigs:
+            - CONFIG_LOCALVERSION="-panda"
+            - CONFIG_DEBUG_INFO=y
+            - CONFIG_SQUASHFS=y
+            - CONFIG_SQUASHFS_XZ=y
+            - CONFIG_DEVPTS_MULTIPLE_INSTANCES=y
+        kernel-image-target: zImage
+        kernel-device-trees:
+            - omap4-panda-a4
+            - omap4-panda
+            - omap4-panda-es
+        build-packages: [crossbuild-essential-armhf, bc, kmod, cpio]
+    wl1xxx-firmware:
+        plugin: copy
+        source: https://git.kernel.org/pub/scm/linux/kernel/git/firmware/linux-firmware.git
+        source-type: git
+        files:
+            ti-connectivity: lib/firmware/ti-connectivity
