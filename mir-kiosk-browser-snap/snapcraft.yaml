@@ -1,0 +1,60 @@
+name: mir-kiosk-browser
+version: 0.23.5
+summary: Kiosk browser on Mir stack
+description: "Simple WebView for embedded devices to browse localhost HTTP service"
+confinement: strict
+type: app
+
+apps:
+  client-start:
+    command: bin/client-start
+    daemon: simple
+    plugs:
+      - mir
+      - opengl
+parts:
+  browser:
+    plugin: copy
+    files:
+        webview.qml: webview.qml
+    stage-packages:
+      - qmlscene
+      - qtdeclarative5-qtmir-plugin
+      - mir-graphics-drivers-desktop
+      - qtubuntu-desktop
+      - ttf-ubuntu-font-family
+      - qml-module-qt-labs-folderlistmodel
+      - qml-module-qt-labs-settings
+      - qml-module-qt-websockets
+      - qml-module-qtfeedback
+      - qml-module-qtgraphicaleffects
+      - qml-module-qtlocation
+      - qml-module-qtmultimedia
+      - qml-module-qtorganizer
+      - qml-module-qtpositioning
+      - qml-module-qtqml-models2
+      - qml-module-qtqml-statemachine
+      - qml-module-qtquick-controls
+      - qml-module-qtquick-dialogs
+      - qml-module-qtquick-layouts
+      - qml-module-qtquick-localstorage
+      - qml-module-qtquick-particles2
+      - qml-module-qtquick-privatewidgets
+      - qml-module-qtquick-window2
+      - qml-module-qtquick-xmllistmodel
+      - qml-module-qtquick2
+      - qml-module-qtsensors
+      - qml-module-qtsysteminfo
+      - qml-module-qttest
+      - qml-module-qtwebkit
+      - intltool
+      - qtdeclarative5-dev
+# alternate clients to play with
+  environment:
+    plugin: copy
+    files:
+      snappy-qt5.conf: etc/xdg/qtchooser/snappy-qt5.conf
+  glue:
+    plugin: copy
+    files:
+      client-start: bin/client-start
