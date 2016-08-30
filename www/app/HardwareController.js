@@ -4087,6 +4087,12 @@ define(['app'], function (app) {
 			else {
 				$("#dialog-createsensor #vsensoraxis").hide();
 			}
+			if ((stype == 6) || (stype == 241) || (stype == 1002) || (stype == 1003)) {
+				$("#dialog-createsensor #prefixtopic").text("/domoticz/out/");
+			}
+			else {
+				$("#dialog-createsensor #prefixtopic").text("/domoticz/in/");
+			}
 		}
 
         CreateDummySensors = function(idx,hwType,name)
@@ -4111,8 +4117,8 @@ define(['app'], function (app) {
 
             $( "#dialog-createsensor" ).dialog({
                   autoOpen: false,
-                  width: 420,
-                  height: 250,
+                  width: 450,
+                  height: 260,
                   modal: true,
                   resizable: false,
                   buttons: {
