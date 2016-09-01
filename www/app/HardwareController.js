@@ -4144,7 +4144,7 @@ define(['app'], function (app) {
 									ShowNotify($.t('Please enter a Axis Label!'), 2500, true);
 									return;
 								}
-								extraSendData+="SensorUnit:" + encodeURIComponent(AxisLabel);
+								extraSendData+="SensorUnit:" + encodeURIComponent(AxisLabel) + ";";
                             }
                             if (hwType=="MQTT") {
 								var DeviceTopic=$("#dialog-createsensor #devicetopic").val();
@@ -4153,7 +4153,7 @@ define(['app'], function (app) {
 									ShowNotify($.t('Please enter a Device topic!'), 2500, true);
 									return;
 								}
-								extraSendData+="DeviceTopic:" + encodeURIComponent(DeviceTopic);
+								extraSendData+="DeviceTopic:" + encodeURIComponent(DeviceTopic) + ";";
                             }
                             $.ajax({
                                  url: "json.htm?type=createvirtualsensor&idx=" + $.devIdx +
