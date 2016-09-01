@@ -11068,7 +11068,22 @@ namespace http {
 			}
 			if (!devoptions.empty())
 			{
-				m_sql.safe_query("UPDATE DeviceStatus SET Options='%q' WHERE (ID == '%q')", devoptions.c_str(), idx.c_str());
+				std::map<std::string, std::string> mOptions = m_sql.GetDeviceOptions(idx);
+				std::map<std::string, std::string> mNewOptions = m_sql.BuildDeviceOptions(devoptions.c_str(), false);
+				std::map<std::string, std::string>::iterator itt;
+				std::map<std::string, std::string>::iterator toReplace;
+				for (itt=mNewOptions.begin(); itt!=mNewOptions.end(); ++itt)
+				{
+					toReplace = mOptions.find(itt->first.c_str());
+					if (toReplace != mOptions.end())
+					{
+						// Only edit if key exists
+						toReplace->second = itt->second;
+					}
+				}
+
+				int DeviceID = atoi(idx.c_str());
+				m_sql.SetDeviceOptions(DeviceID, mOptions);
 			}
 
 			if (used == 0)
