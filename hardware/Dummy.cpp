@@ -62,6 +62,7 @@ bool CDummy::CreateVirtualSensor(int HwdID, std::string ssensorname, std::string
 	sprintf(ID, "%lu", nid);
 
 	std::string devname;
+	std::string szCommand = "createvirtualsensor";
 
 	unsigned long long DeviceRowIdx = -1;
 	switch (iSensorType)
@@ -361,7 +362,7 @@ bool CDummy::CreateVirtualSensor(int HwdID, std::string ssensorname, std::string
 	}
 	if (bCreated)
 	{
-		m_mainworker.sOnDeviceReceived(HwdID, DeviceRowIdx, ssensorname, NULL);
+		m_mainworker.sOnDeviceReceived(HwdID, DeviceRowIdx, szCommand, NULL);
 	}
 
 	return bCreated;

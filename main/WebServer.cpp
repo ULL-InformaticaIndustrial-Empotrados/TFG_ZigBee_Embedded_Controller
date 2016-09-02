@@ -9483,8 +9483,17 @@ namespace http {
 				return;//Only admin user allowed
 
 			std::string idx = request::findValue(&req, "idx");
-			if (idx == "")
+			int DeviceID = atoi(idx.c_str());
+
+			std::vector<std::vector<std::string> > result;
+			result = m_sql.safe_query("SELECT HardwareID FROM DeviceStatus WHERE (ID==%llu)", DeviceID);
+
+			if (result.size() == 0)
 				return;
+
+			int HwdID = atoi(result[0][0].c_str());
+
+			m_mainworker.sOnDeviceReceived(HwdID, DeviceID, "deletedevice", NULL);
 
 			root["status"] = "OK";
 			root["title"] = "DeleteDevice";

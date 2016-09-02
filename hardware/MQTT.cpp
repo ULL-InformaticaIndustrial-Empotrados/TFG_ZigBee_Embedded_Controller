@@ -381,7 +381,7 @@ void MQTT::on_message(Json::Value &root)
 	else if (szCommand == "getdeviceinfo")
 	{
 		int HardwareID = atoi(result[0][0].c_str());
-		SendDeviceInfo(HardwareID, idx, "request device", NULL);
+		SendDeviceInfo(HardwareID, idx, szCommand.c_str(), NULL);
 		return;
 	}
 	else if (szCommand == "getsceneinfo")
@@ -554,7 +554,7 @@ void MQTT::ProcessMySensorsMessage(const std::string &MySensorsMessage)
 	ParseLine();
 }
 
-void MQTT::SendDeviceInfo(const int m_HwdID, const unsigned long long DeviceRowIdx, const std::string &DeviceName, const unsigned char *pRXCommand)
+void MQTT::SendDeviceInfo(const int m_HwdID, const unsigned long long DeviceRowIdx, const std::string &CommandName, const unsigned char *pRXCommand)
 {
 	boost::lock_guard<boost::mutex> l(m_mqtt_mutex);
 	if (!m_IsConnected)
@@ -600,6 +600,11 @@ void MQTT::SendDeviceInfo(const int m_HwdID, const unsigned long long DeviceRowI
 		root["RSSI"] = RSSI;
 		root["Battery"] = BatteryLevel;
 		root["nvalue"] = nvalue;
+
+		if (CommandName.size())
+		{
+			root["fromcommand"] = CommandName;
+		}
 
 		//give all svalues separate
 		std::vector<std::string> strarray;
