@@ -396,7 +396,8 @@ void MQTT::on_message(Json::Value &root)
 		std::string ssensorname = root["sensorname"].asString();
 		std::string ssensortype = root["sensortype"].asString();
 		std::string soptions = root["sensoroptions"].asString();
-		CDummy::CreateVirtualSensor(m_HwdID, ssensorname, ssensortype, soptions);
+		if (CDummy::CreateVirtualSensor(m_HwdID, ssensorname, ssensortype, soptions))
+			return;
 	}
 	else
 	{
