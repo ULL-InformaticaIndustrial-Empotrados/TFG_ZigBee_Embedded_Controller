@@ -15,6 +15,7 @@
 #define CLIENTID	"Domoticz"
 #define TOPIC_OUT	"domoticz/out"
 #define TOPIC_IN	"domoticz/in"
+#define TOPIC_IN_SUB	"domoticz/in/#"
 #define QOS         1
 
 MQTT::MQTT(const int ID, const std::string &IPAddress, const unsigned short usIPPort, const std::string &Username, const std::string &Password, const std::string &CAfilename, const int Topics) :
@@ -110,7 +111,7 @@ void MQTT::on_connect(int rc)
 			sOnConnected(this);
 			m_sConnection = m_mainworker.sOnDeviceReceived.connect(boost::bind(&MQTT::SendDeviceInfo, this, _1, _2, _3, _4));
 		}
-		subscribe(NULL, TOPIC_IN);
+		subscribe(NULL, TOPIC_IN_SUB);
 	}
 	else {
 		_log.Log(LOG_ERROR, "MQTT: Connection failed!, restarting (rc=%d)",rc);
@@ -154,14 +155,19 @@ void MQTT::on_message(const struct mosquitto_message *message)
 		return;
 
 	std::string in_topic = TOPIC_IN;
-	std::string sdevtopic = topic.substr(in_topic.size());
+	std::string sdevtopic = topic.substr(in_topic.size() + 1);
 	std::string sencoded = base64_encode((const unsigned char*)sdevtopic.c_str(), sdevtopic.size());
 
 	std::vector<std::vector<std::string> > result;
-	result = m_sql.safe_query("SELECT DeviceID FROM DeviceStatus WHERE (Options LIKE '%%DeviceTopic:%s%%')", sencoded);
+	result = m_sql.safe_query("SELECT ID FROM DeviceStatus WHERE (Options LIKE '%%DeviceTopic:%s%%')", sencoded.c_str());
+	if (result.empty())
+	{
+		_log.Log(LOG_ERROR, "MQTT: unknown device topic received!");
+		return;
+	}
 	for(size_t i=0 ; i<result.size(); i++)
 	{
-		root["idx"] = result[i][0];
+		root["idx"] = atoi(result[i][0].c_str());
 		on_message(root);
 	}
 }
