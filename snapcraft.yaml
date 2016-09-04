@@ -26,8 +26,8 @@ parts:
             - omap4-panda-es
         build-packages: [crossbuild-essential-armhf, bc, kmod, cpio]
     wl1xxx-firmware:
-        plugin: copy
+        plugin: dump
         source: https://git.kernel.org/pub/scm/linux/kernel/git/firmware/linux-firmware.git
         source-type: git
-        files:
+        organize:
             ti-connectivity: lib/firmware/ti-connectivity
