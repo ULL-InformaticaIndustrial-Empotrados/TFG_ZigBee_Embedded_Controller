@@ -22,6 +22,12 @@ parts:
             - CONFIG_FB_PRE_INIT_FB=y
             - CONFIG_FB_OMAP2=y
             - CONFIG_RTC_DRV_TWL4030=y
+            - CONFIG_USB=y
+            - CONFIG_USB_KBD=y
+            - CONFIG_USB_MOUSE=y
+            - CONFIG_USB_OHCI_HCD=y
+            - CONFIG_USB_EHCI_HCD=y
+            - CONFIG_USB_STORAGE=y
         kernel-image-target: zImage
         kernel-device-trees:
             - omap4-panda-a4
