@@ -21,6 +21,7 @@ parts:
             - CONFIG_DEVPTS_MULTIPLE_INSTANCES=y
             - CONFIG_FB_PRE_INIT_FB=y
             - CONFIG_FB_OMAP2=y
+            - CONFIG_RTC_DRV_TWL4030=y
         kernel-image-target: zImage
         kernel-device-trees:
             - omap4-panda-a4
