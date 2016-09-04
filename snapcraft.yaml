@@ -19,6 +19,8 @@ parts:
             - CONFIG_SQUASHFS=y
             - CONFIG_SQUASHFS_XZ=y
             - CONFIG_DEVPTS_MULTIPLE_INSTANCES=y
+            - CONFIG_FB_PRE_INIT_FB=y
+            - CONFIG_FB_OMAP2=y
         kernel-image-target: zImage
         kernel-device-trees:
             - omap4-panda-a4
