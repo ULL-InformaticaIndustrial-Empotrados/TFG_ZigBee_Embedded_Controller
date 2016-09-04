@@ -1,5 +1,5 @@
 name: linux-panda
-version: 4.4.15
+version: 4.4.19
 summary: A PandaBoard kernel built from source
 description: This is the reference kernel for PandaBoard and PandaBoard ES
 type: kernel
@@ -10,7 +10,7 @@ parts:
     kernel:
         plugin: kernel
         source: https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable.git
-        source-tag: v4.4.15
+        source-tag: v4.4.19
         source-type: git
         kdefconfig: [omap2plus_defconfig]
         kconfigs:
