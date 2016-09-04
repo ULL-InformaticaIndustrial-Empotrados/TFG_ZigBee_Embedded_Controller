@@ -1,5 +1,5 @@
 name: linux-panda
-version: 4.4.15
+version: 4.4.19
 summary: A PandaBoard kernel built from source
 description: This is the reference kernel for PandaBoard and PandaBoard ES
 type: kernel
@@ -10,7 +10,7 @@ parts:
     kernel:
         plugin: kernel
         source: https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable.git
-        source-tag: v4.4.15
+        source-tag: v4.4.19
         source-type: git
         kdefconfig: [omap2plus_defconfig]
         kconfigs:
@@ -19,6 +19,19 @@ parts:
             - CONFIG_SQUASHFS=y
             - CONFIG_SQUASHFS_XZ=y
             - CONFIG_DEVPTS_MULTIPLE_INSTANCES=y
+            - CONFIG_FB_PRE_INIT_FB=y
+            - CONFIG_FB_OMAP2=y
+            - CONFIG_RTC_DRV_TWL4030=y
+            - CONFIG_USB=y
+            - CONFIG_USB_KBD=y
+            - CONFIG_USB_MOUSE=y
+            - CONFIG_USB_OHCI_HCD=y
+            - CONFIG_USB_EHCI_HCD=y
+            - CONFIG_USB_STORAGE=y
+            - CONFIG_OMAP2_DSS=y
+            - CONFIG_DISPLAY_CONNECTOR_DVI=y
+            - CONFIG_DISPLAY_CONNECTOR_HDMI=y
+            - CONFIG_DISPLAY_PANEL_DPI=y
         kernel-image-target: zImage
         kernel-device-trees:
             - omap4-panda-a4
@@ -26,8 +39,8 @@ parts:
             - omap4-panda-es
         build-packages: [crossbuild-essential-armhf, bc, kmod, cpio]
     wl1xxx-firmware:
-        plugin: copy
+        plugin: dump
         source: https://git.kernel.org/pub/scm/linux/kernel/git/firmware/linux-firmware.git
         source-type: git
-        files:
+        organize:
             ti-connectivity: lib/firmware/ti-connectivity
