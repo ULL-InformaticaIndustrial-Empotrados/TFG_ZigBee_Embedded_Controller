@@ -12,6 +12,10 @@ Assemble
 
     $ sudo apt-get install snapcraft
 
-**2. Build**
+**2. Login with your Ubuntu One SSO credentials**
 
-    $ sudo snapcraft --targetarch armhf
+	$ snapcraft login
+
+**3. Build**
+
+    $ sudo snapcraft --target-arch armhf
