@@ -1786,7 +1786,7 @@ define(['app'], function (app) {
 			  bValid = bValid && checkLength( $("#dialog-editcustomsensordevice #sensoraxis"), 1, 100 );
 			  if ( bValid ) {
 				  $( this ).dialog( "close" );
-				  var soptions = $.sensorType + ";" + encodeURIComponent($("#dialog-editcustomsensordevice #sensoraxis").val());
+				  var soptions = "SensorUnit:" + encodeURIComponent($("#dialog-editcustomsensordevice #sensoraxis").val());
 					var cval=$('#dialog-editcustomsensordevice #combosensoricon').data('ddslick').selectedIndex;
 					var CustomImage=$.ddData[cval].value;
 				  

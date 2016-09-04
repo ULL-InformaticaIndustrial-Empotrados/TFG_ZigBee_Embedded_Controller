@@ -2246,7 +2246,7 @@ void MainWorker::ProcessRXMessage(const CDomoticzHardwareBase *pHardware, const 
 	//Send to connected Sharing Users
 	m_sharedserver.SendToAll(pHardware->m_HwdID, DeviceRowIdx, (const char*)pRXCommand, pRXCommand[0] + 1, pClient2Ignore);
 
-	sOnDeviceReceived(pHardware->m_HwdID, DeviceRowIdx, DeviceName, pRXCommand);
+	sOnDeviceReceived(pHardware->m_HwdID, DeviceRowIdx, "", pRXCommand);
 }
 
 void MainWorker::decode_InterfaceMessage(const int HwdID, const _eHardwareTypes HwdType, const tRBUF *pResponse, _tRxMessageProcessingResult & procResult)
@@ -12265,7 +12265,7 @@ bool MainWorker::UpdateDevice(const int HardwareID, const std::string &DeviceID,
 	// signal connected devices (MQTT, fibaro, http push ... ) about the web update
 	if ((pHardware) && (parseTrigger))
 	{
-		sOnDeviceReceived(pHardware->m_HwdID, devidx, devname, NULL);
+		sOnDeviceReceived(pHardware->m_HwdID, devidx, "", NULL);
 	}
 
 	std::stringstream sidx;

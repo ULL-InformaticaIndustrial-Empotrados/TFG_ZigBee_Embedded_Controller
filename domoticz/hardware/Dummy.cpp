@@ -62,6 +62,7 @@ bool CDummy::CreateVirtualSensor(int HwdID, std::string ssensorname, std::string
 	sprintf(ID, "%lu", nid);
 
 	std::string devname;
+	std::string szCommand = "createvirtualsensor";
 
 	unsigned long long DeviceRowIdx = -1;
 	switch (iSensorType)
@@ -354,14 +355,14 @@ bool CDummy::CreateVirtualSensor(int HwdID, std::string ssensorname, std::string
 		m_sql.SetDeviceOptions(DeviceRowIdx, m_sql.BuildDeviceOptions(soptions.c_str(), false));
 	}
 
-	if (bCreated)
-	{
-		m_mainworker.sOnDeviceReceived(HwdID, DeviceRowIdx, ssensorname, NULL);
-	}
 	if (DeviceRowIdx != -1)
 	{
 		m_sql.safe_query("UPDATE DeviceStatus SET Name='%q', Used=1 WHERE (ID==%llu)", ssensorname.c_str(), DeviceRowIdx);
 		m_mainworker.m_eventsystem.GetCurrentStates();
+	}
+	if (bCreated)
+	{
+		m_mainworker.sOnDeviceReceived(HwdID, DeviceRowIdx, szCommand, NULL);
 	}
 
 	return bCreated;

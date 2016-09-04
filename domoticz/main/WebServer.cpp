@@ -9483,8 +9483,17 @@ namespace http {
 				return;//Only admin user allowed
 
 			std::string idx = request::findValue(&req, "idx");
-			if (idx == "")
+			int DeviceID = atoi(idx.c_str());
+
+			std::vector<std::vector<std::string> > result;
+			result = m_sql.safe_query("SELECT HardwareID FROM DeviceStatus WHERE (ID==%llu)", DeviceID);
+
+			if (result.size() == 0)
 				return;
+
+			int HwdID = atoi(result[0][0].c_str());
+
+			m_mainworker.sOnDeviceReceived(HwdID, DeviceID, "deletedevice", NULL);
 
 			root["status"] = "OK";
 			root["title"] = "DeleteDevice";
@@ -11068,7 +11077,22 @@ namespace http {
 			}
 			if (!devoptions.empty())
 			{
-				m_sql.safe_query("UPDATE DeviceStatus SET Options='%q' WHERE (ID == '%q')", devoptions.c_str(), idx.c_str());
+				std::map<std::string, std::string> mOptions = m_sql.GetDeviceOptions(idx);
+				std::map<std::string, std::string> mNewOptions = m_sql.BuildDeviceOptions(devoptions.c_str(), false);
+				std::map<std::string, std::string>::iterator itt;
+				std::map<std::string, std::string>::iterator toReplace;
+				for (itt=mNewOptions.begin(); itt!=mNewOptions.end(); ++itt)
+				{
+					toReplace = mOptions.find(itt->first.c_str());
+					if (toReplace != mOptions.end())
+					{
+						// Only edit if key exists
+						toReplace->second = itt->second;
+					}
+				}
+
+				int DeviceID = atoi(idx.c_str());
+				m_sql.SetDeviceOptions(DeviceID, mOptions);
 			}
 
 			if (used == 0)
