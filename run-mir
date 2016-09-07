@@ -1,3 +1,11 @@
 #!/bin/bash
 
-MIR_SERVER_PLATFORM_PATH=$SNAP/usr/lib/x86_64-linux-gnu/mir/server-platform LD_LIBRARY_PATH=$SNAP/usr/lib/x86_64-linux-gnu/:$SNAP/usr/lib/x86_64-linux-gnu/mesa-egl/ $SNAP/bin/mir-server --vt 1 --file /run/mir_socket
+if [ "$SNAP_ARCH" == "amd64" ]; then
+  ARCH='x86_64-linux-gnu'
+elif [ "$SNAP_ARCH" == "armhf" ]; then
+  ARCH="arm-linux-gnueabihf"
+else
+  ARCH="$SNAP_ARCH-linux-gnu"
+fi
+
+MIR_SERVER_PLATFORM_PATH=$SNAP/usr/lib/$ARCH/mir/server-platform LD_LIBRARY_PATH=$SNAP/usr/lib/$ARCH/:$SNAP/usr/lib/$ARCH/mesa-egl/ $SNAP/bin/mir-server --vt 1 --file /run/mir_socket
