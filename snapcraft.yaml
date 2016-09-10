@@ -3,6 +3,7 @@ version: 4.4.19
 summary: A PandaBoard kernel built from source
 description: This is the reference kernel for PandaBoard and PandaBoard ES
 type: kernel
+grade: stable
 confinement: devmode
 architectures: [armhf]
 
