@@ -3,6 +3,7 @@ version: 4.4.19
 summary: A PandaBoard kernel built from source
 description: This is the reference kernel for PandaBoard and PandaBoard ES
 type: kernel
+grade: stable
 confinement: devmode
 architectures: [armhf]
 
@@ -32,6 +33,10 @@ parts:
             - CONFIG_DISPLAY_CONNECTOR_DVI=y
             - CONFIG_DISPLAY_CONNECTOR_HDMI=y
             - CONFIG_DISPLAY_PANEL_DPI=y
+            - CONFIG_SECURITY_APPARMOR=y
+            - CONFIG_SECURITY_APPARMOR_BOOTPARAM_VALUE=1
+            - CONFIG_DEFAULT_SECURITY_APPARMOR=y
+            - CONFIG_AUDIT=y
         kernel-image-target: zImage
         kernel-device-trees:
             - omap4-panda-a4
