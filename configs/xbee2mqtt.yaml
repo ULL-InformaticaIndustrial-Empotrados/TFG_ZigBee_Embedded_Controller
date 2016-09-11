@@ -1,0 +1,32 @@
+daemon:
+    pidfile: /tmp/xbee2mqtt.pid
+#    stderr: /tmp/xbee2mqtt.err
+    stdout: /tmp/xbee2mqtt.log
+
+    logging_level: 10
+
+general:
+    debug: True
+    sample_rate: 1
+    change_detection: True
+    discovery_on_connect: True
+    duplicate_check_window: 5
+    expose_undefined_topics: True
+    default_output_topic_pattern: /raw/xbee/out/{address}/{port}/{item}
+    default_input_topic_pattern: /raw/xbee/in/{address}/{port}/{item}
+
+radio:
+    port: /dev/ttyS0
+    baudrate: 115200
+    default_port_name: serial
+
+mqtt:
+    client_id: xbee2mqtt
+    host: localhost
+    port: 1883
+    keepalive: 60
+    clean_session: False
+    qos: 0
+    retain: True
+    status_topic: /service/xbee2mqtt/status
+    set_will: True
