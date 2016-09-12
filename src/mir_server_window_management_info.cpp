@@ -21,7 +21,6 @@
 
 #include "mir/scene/surface.h"
 #include "mir/scene/surface_creation_parameters.h"
-#include "mir/scene/session.h"
 
 #include "mir/graphics/buffer.h"
 
@@ -173,31 +172,29 @@ struct msn::SurfaceInfo::SwappingPainter
     SwappingPainter(std::shared_ptr<frontend::BufferStream> const& buffer_stream) :
         buffer_stream{buffer_stream}, buffer{nullptr}
     {
-        swap_buffers(nullptr);
-        if (!buffer)
-            throw std::runtime_error("no buffer after swap");
+        swap_buffers();
     }
 
-    void swap_buffers(graphics::Buffer* buf)
+    void swap_buffers()
     {
         auto const callback = [this](mir::graphics::Buffer* new_buffer)
             {
                 buffer.store(new_buffer);
             };
 
-        buffer_stream->swap_buffers(buf, callback);
+        buffer_stream->swap_buffers(buffer, callback);
     }
 
     void paint(int intensity) override
     {
-        if (graphics::Buffer* buf = buffer.exchange(nullptr))
+        if (auto const buf = buffer.load())
         {
             auto const format = buffer_stream->pixel_format();
             auto const sz = buf->size().height.as_int() *
                             buf->size().width.as_int() * MIR_BYTES_PER_PIXEL(format);
             std::vector<unsigned char> pixels(sz, intensity);
             buf->write(pixels.data(), sz);
-            swap_buffers(buf);
+            swap_buffers();
         }
     }
 
@@ -208,61 +205,55 @@ struct msn::SurfaceInfo::SwappingPainter
 struct msn::SurfaceInfo::AllocatingPainter
     : msn::SurfaceInfo::StreamPainter
 {
-    AllocatingPainter(
-        std::shared_ptr<frontend::BufferStream> const& buffer_stream,
-        std::shared_ptr<scene::Session> const& session,
-        Size size) :
+    AllocatingPainter(std::shared_ptr<frontend::BufferStream> const& buffer_stream, Size size) :
         buffer_stream(buffer_stream),
-        session(session),
         properties({
             size,
             buffer_stream->pixel_format(),
             mg::BufferUsage::software
         }),
-        front_buffer(session->create_buffer(properties)),
-        back_buffer(session->create_buffer(properties))
+        front_buffer(buffer_stream->allocate_buffer(properties)),
+        back_buffer(buffer_stream->allocate_buffer(properties))
     {
     }
 
     void paint(int intensity) override
     {
-        auto buffer = session->get_buffer(back_buffer);
-
-        auto const format = buffer->pixel_format();
-        auto const sz = buffer->size().height.as_int() *
-                        buffer->size().width.as_int() * MIR_BYTES_PER_PIXEL(format);
-        std::vector<unsigned char> pixels(sz, intensity);
-        buffer->write(pixels.data(), sz);
-        buffer_stream->swap_buffers(buffer.get(), [](mg::Buffer*){});
-
+        buffer_stream->with_buffer(back_buffer,
+            [this, intensity](graphics::Buffer& buffer)
+            {
+                auto const format = buffer.pixel_format();
+                auto const sz = buffer.size().height.as_int() *
+                                buffer.size().width.as_int() * MIR_BYTES_PER_PIXEL(format);
+                std::vector<unsigned char> pixels(sz, intensity);
+                buffer.write(pixels.data(), sz);
+                buffer_stream->swap_buffers(&buffer, [](mg::Buffer*){});
+            });
         std::swap(front_buffer, back_buffer);
     }
 
     ~AllocatingPainter()
     {
-        session->destroy_buffer(front_buffer);
-        session->destroy_buffer(back_buffer);
+        buffer_stream->remove_buffer(front_buffer);
+        buffer_stream->remove_buffer(back_buffer);
     }
 
     std::shared_ptr<frontend::BufferStream> const buffer_stream;
-    std::shared_ptr<scene::Session> const session;
     mg::BufferProperties properties;
     mg::BufferID front_buffer; 
     mg::BufferID back_buffer; 
 };
 
-void msn::SurfaceInfo::init_titlebar(
-    std::shared_ptr<scene::Session> const& session,
-    std::shared_ptr<scene::Surface> const& surface)
+void msn::SurfaceInfo::init_titlebar(std::shared_ptr<scene::Surface> const& surface)
 {
     auto stream = surface->primary_buffer_stream();
     try
     {
-        stream_painter = std::make_shared<SwappingPainter>(stream);
+        stream_painter = std::make_shared<AllocatingPainter>(stream, surface->size());
     }
     catch (...)
     {
-        stream_painter = std::make_shared<AllocatingPainter>(stream, session, surface->size());
+        stream_painter = std::make_shared<SwappingPainter>(stream);
     }
 }
 
