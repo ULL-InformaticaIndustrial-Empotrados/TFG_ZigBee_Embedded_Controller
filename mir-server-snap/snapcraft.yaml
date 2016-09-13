@@ -1,0 +1,33 @@
+name: mir-server
+# for convenience, make version match mir
+version: 0.21
+summary: A minimalistic Mir server snap
+description: This Mir server uses the default settings that the Mir server library provides.
+confinement: strict
+type: app
+
+apps:
+  mir-server:
+    command: bin/run-mir
+    daemon: simple
+    slots:
+      - mir
+    plugs:
+      - opengl
+parts:
+  server:
+    plugin: cmake
+    source: src
+    build-packages:
+      - libc6-dev
+    stage-packages:
+      - libmirserver-dev
+      - libmirclient-dev
+      - libmirplatform-dev
+      - mir-graphics-drivers-desktop
+      - libglm-dev
+      - libxkbcommon-dev
+  glue:
+    plugin: copy
+    files:
+      run-mir: bin/run-mir
