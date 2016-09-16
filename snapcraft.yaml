@@ -37,6 +37,10 @@ parts:
             - CONFIG_SECURITY_APPARMOR_BOOTPARAM_VALUE=1
             - CONFIG_DEFAULT_SECURITY_APPARMOR=y
             - CONFIG_AUDIT=y
+            - CONFIG_TI_ST= m
+            - CONFIG_BT_WILINK=m
+            - CONFIG_RFKILL=y
+            - CONFIG_RFKILL_INPUT=y
         kernel-image-target: zImage
         kernel-device-trees:
             - omap4-panda-a4
